@@ -5,8 +5,8 @@ scaitbackend-main/node_modules/
 # Generated Certificate Output / Cache
 certificate/cer_img/*
 !certificate/cer_img/.gitkeep
-cer_img/*
-!cer_img/.gitkeep
+upload/*
+!upload/.gitkeep
 
 # Logs and runtime errors
 error_log
