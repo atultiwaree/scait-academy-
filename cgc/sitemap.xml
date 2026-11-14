@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://cgc.scait.in</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/character_constant_and_exponent.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/comments.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/constants.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/constructing_rule.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/keyword.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/terms-used-in-c.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/tools-to-run-c-programs.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cgc.scait.in/variables.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>
