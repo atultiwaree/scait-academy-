@@ -300,12 +300,12 @@
 
   <header class="site-header">
     <div class="cap-wrap">
-      <!-- Sparkles -->
-      <span class="sparkle sp1">✦</span>
-      <span class="sparkle sp2">✦</span>
-      <span class="sparkle sp3">✦</span>
-      <span class="sparkle sp4">✦</span>
-      <span class="sparkle sp5">✦</span>
+      <!-- Sparkles (SVG) -->
+      <span class="sparkle sp1"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ff7a47"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg></span>
+      <span class="sparkle sp2"><svg width="11" height="11" viewBox="0 0 24 24" fill="#ff7a47"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg></span>
+      <span class="sparkle sp3"><svg width="10" height="10" viewBox="0 0 24 24" fill="#ff7a47"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg></span>
+      <span class="sparkle sp4"><svg width="12" height="12" viewBox="0 0 24 24" fill="#ff7a47"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg></span>
+      <span class="sparkle sp5"><svg width="9" height="9" viewBox="0 0 24 24" fill="#ff7a47"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg></span>
 
       <!-- Lottie will render here -->
       <div id="lottie-cap"></div>
@@ -334,7 +334,7 @@
         <line x1="42" y1="65" x2="54" y2="65" stroke="#002147" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
         <line x1="37" y1="64" x2="63" y2="64" stroke="#e66030" stroke-width="2" opacity="0.35"/>
         <!-- Star on board -->
-        <text x="44" y="37" font-size="10" fill="rgba(255,255,255,0.9)" text-anchor="middle" font-family="serif">★</text>
+        <polygon points="44,30 45.2,33.2 48.6,33.2 45.8,35.2 46.9,38.4 44,36.4 41.1,38.4 42.2,35.2 39.4,33.2 42.8,33.2" fill="rgba(255,255,255,0.9)"/>
       </svg>
     </div>
 
@@ -363,14 +363,24 @@
 
     </div>
     <div class="card-footer">
-      <span>🔒 Secure Digital Verification</span>
-      <span class="brand">SCAIT © 2025</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure Digital Verification
+      </span>
+      <span class="brand">SCAIT &copy; <span id="current-year"></span></span>
     </div>
   </div>
 
 </div>
 
 <script>
+document.getElementById('current-year').textContent = new Date().getFullYear();
+
+const ICON_CHECK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const ICON_CROSS = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+const ICON_CLOCK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+const ICON_RETRY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>';
+
 // ── Lottie loader with fallback ──
 (function() {
   const container = document.getElementById('lottie-cap');
@@ -387,7 +397,6 @@
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      // Free graduation cap Lottie from LottieFiles
       path: 'https://assets9.lottiefiles.com/packages/lf20_uu0x8lqv.json'
     });
     anim.addEventListener('data_failed', showFallback);
@@ -418,26 +427,26 @@ function setStatus(type, icon, title, sub) {
 
 if (!id || ['veriy','verify',''].includes(id.toLowerCase())) {
   labelEl.textContent = 'No ID';
-  setStatus('invalid', '✕', 'No ID Found', 'No enrollment number was found in the URL.');
+  setStatus('invalid', ICON_CROSS, 'No ID Found', 'No enrollment number was found in the URL.');
 } else {
   labelEl.textContent = id.toUpperCase();
 
   const controller = new AbortController();
-  const wakeTimer  = setTimeout(() => controller.abort(), 22000);
+  const wakeTimer  = setTimeout(() => controller.abort(), 15000);
 
-  fetch(`https://scaitbackend.onrender.com/verify/${id}`, { signal: controller.signal })
+  fetch(`/veriy/api.php?id=${encodeURIComponent(id)}`, { signal: controller.signal })
     .then(r => { clearTimeout(wakeTimer); return r.json(); })
     .then(data => {
       if (data.verified) {
         const d = data.data;
-        setStatus('verified', '✔', 'Certificate Verified', 'This certificate is authentic and valid.');
+        setStatus('verified', ICON_CHECK, 'Certificate Verified', 'This certificate is authentic and valid.');
 
         resultEl.innerHTML = `
           <div class="profile anim-pop">
             <div class="photo-frame">
               <img src="${d.photo}" alt="${d.studentName}"
-                onerror="this.parentElement.innerHTML='<div style=&quot;width:76px;height:92px;border-radius:12px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:32px;&quot;>👤</div>'">
-              <div class="photo-badge">✔</div>
+                onerror="this.parentElement.innerHTML='<div style=&quot;width:76px;height:92px;border-radius:12px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#94a3b8;&quot;><svg width=&quot;32&quot; height=&quot;32&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;><path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/></svg></div>'">
+              <div class="photo-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             </div>
             <div class="profile-info">
               <div class="pname">${d.studentName}</div>
@@ -464,6 +473,17 @@ if (!id || ['veriy','verify',''].includes(id.toLowerCase())) {
             <div class="drow"><span class="dlabel">Date of Issue</span><span class="dval">${d.dateOfIssue}</span></div>
           </div>
 
+          <div style="display:flex;gap:12px;margin:18px 0;width:100%;flex-wrap:wrap;" class="anim-up d2">
+            <a href="/certificate/download.php?id=${encodeURIComponent(d.rollNumber)}&type=diploma" class="btn" style="flex:1;min-width:160px;background:var(--orange);color:#fff;text-align:center;padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13.5px;box-shadow:0 4px 14px rgba(230,96,48,0.4);display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+              Download Diploma
+            </a>
+            <a href="/certificate/download.php?id=${encodeURIComponent(d.rollNumber)}&type=marksheet" class="btn" style="flex:1;min-width:160px;background:var(--navy);color:#fff;border:1px solid rgba(0,33,71,0.2);text-align:center;padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Download Marksheet
+            </a>
+          </div>
+
           <div class="seal-wrap anim-up d2">
             <div class="seal">
               <svg class="seal-outer" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
@@ -476,7 +496,7 @@ if (!id || ['veriy','verify',''].includes(id.toLowerCase())) {
                 <circle cx="47" cy="47" r="43" fill="none" stroke="#e66030" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.35"/>
               </svg>
               <div class="seal-center">
-                <span class="seal-check">✔</span>
+                <span class="seal-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                 <span>VALID</span>
                 <span>CERT</span>
               </div>
@@ -485,34 +505,34 @@ if (!id || ['veriy','verify',''].includes(id.toLowerCase())) {
           </div>`;
 
       } else {
-        setStatus('invalid', '✕', 'Not Found', data.message || 'No certificate record found.');
+        setStatus('invalid', ICON_CROSS, 'Not Found', data.message || 'No certificate record found.');
         resultEl.innerHTML = `
           <div class="not-found anim-pop">
-            <span class="nf-icon">🔍</span>
+            <span class="nf-icon"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
             <div class="nf-title">No Record Found</div>
             <p class="nf-text">We couldn't find a certificate for<br><strong>${id}</strong>.<br>Please check the number and try again.</p>
-            <button class="retry-btn" onclick="window.location.reload()">↺ &nbsp;Try Again</button>
+            <button class="retry-btn" onclick="window.location.reload()">${ICON_RETRY}Try Again</button>
           </div>`;
       }
     })
     .catch(err => {
       if (err.name === 'AbortError') {
-        setStatus('invalid', '⏱', 'Server Waking Up', 'Render free tier takes ~30s to start.');
+        setStatus('invalid', ICON_CLOCK, 'Server Waking Up', 'Please wait a moment and retry.');
         resultEl.innerHTML = `
           <div class="not-found anim-pop">
-            <span class="nf-icon">⏳</span>
+            <span class="nf-icon"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
             <div class="nf-title">Server Is Starting</div>
-            <p class="nf-text">The server is warming up on Render.<br>Please wait 30 seconds and retry.</p>
-            <button class="retry-btn" onclick="window.location.reload()">↺ &nbsp;Retry Now</button>
+            <p class="nf-text">The verification service is initializing.<br>Please wait a few seconds and retry.</p>
+            <button class="retry-btn" onclick="window.location.reload()">${ICON_RETRY}Retry Now</button>
           </div>`;
       } else {
-        setStatus('invalid', '✕', 'Connection Error', 'Could not reach verification server.');
+        setStatus('invalid', ICON_CROSS, 'Connection Error', 'Could not reach verification server.');
         resultEl.innerHTML = `
           <div class="not-found anim-pop">
-            <span class="nf-icon">📡</span>
+            <span class="nf-icon"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span>
             <div class="nf-title">Connection Failed</div>
             <p class="nf-text">Please check your internet connection<br>and try again.</p>
-            <button class="retry-btn" onclick="window.location.reload()">↺ &nbsp;Retry</button>
+            <button class="retry-btn" onclick="window.location.reload()">${ICON_RETRY}Retry</button>
           </div>`;
       }
     });

@@ -1,12 +1,28 @@
 # Dependencies
 node_modules/
 scaitbackend-main/node_modules/
+scait-certificate-main/
+scaitresult-main/
+scratch/
 
-# Generated Certificate Output / Cache
+# Generated Certificate Output & Student/Gallery Image Uploads
+cer_img/*
+!cer_img/.gitkeep
 certificate/cer_img/*
 !certificate/cer_img/.gitkeep
+certificate/upload/*
+!certificate/upload/.gitkeep
+certificate/stu_img/*
+!certificate/stu_img/.gitkeep
 upload/*
 !upload/.gitkeep
+photo/*
+!photo/.gitkeep
+images/mobile-qr.png
+
+# PHP QR Code Cache (.dat files)
+lib/phpqrcode/cache/
+*.dat
 
 # Logs and runtime errors
 error_log
@@ -22,6 +38,6 @@ yarn-error.log*
 # OS and Editor metadata
 .DS_Store
 Thumbs.db
+*.bak
 .vscode/
 .idea/
-

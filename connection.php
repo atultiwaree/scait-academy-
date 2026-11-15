@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+@ini_set('display_errors', '0');
+
 $host = getenv('DB_HOST') ?: 'localhost';
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
